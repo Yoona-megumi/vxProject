@@ -43,8 +43,8 @@ public class UserController {
 
     //根据姓名查询老师
     @GetMapping("/queryTeacherByTname/{tname}")
-    public  Result queryTeacherBySname(@PathVariable("tname") String tname){
-        List<Teacher> teacher = userMapper.queryTeacherBySname(tname);
+    public  Result queryTeacherByTname(@PathVariable("tname") String tname){
+        List<Teacher> teacher = userMapper.queryTeacherByTname(tname);
         return new Result<Teacher>(teacher);
     }
 
@@ -71,17 +71,14 @@ public class UserController {
     //添加用户
     @RequestMapping("/addStudent")
     public void addStudent(HttpServletRequest httpServletRequest){
-        String sno1 = httpServletRequest.getParameter("sno");
-        int sno = Integer.parseInt(sno1);
+        int sno = Integer.parseInt(httpServletRequest.getParameter("sno"));
         String sname = httpServletRequest.getParameter("sname");
         String sgrade = httpServletRequest.getParameter("sgrade");
-        String sphone1 = httpServletRequest.getParameter("sphone");
-        int sphone = Integer.parseInt(sphone1);
+        int sphone = Integer.parseInt(httpServletRequest.getParameter("sphone"));
         String sschool = httpServletRequest.getParameter("sschool");
         String sdept = httpServletRequest.getParameter("sdept");
         String sinfo = httpServletRequest.getParameter("sinfo");
-        String steacher1 = httpServletRequest.getParameter("steacher");
-        int steacher = Integer.parseInt(steacher1);
+        int steacher = Integer.parseInt(httpServletRequest.getParameter("steacher"));
 
         User student = new User(sno,sname,sgrade,sphone,sschool,sdept,sinfo,steacher);
         userMapper.addStudent(student);
@@ -90,17 +87,14 @@ public class UserController {
     //更新用户信息
     @RequestMapping("/updateStudent")
     public void updateStudent(HttpServletRequest httpServletRequest){
-        String sno1 = httpServletRequest.getParameter("sno");
-        int sno = Integer.parseInt(sno1);
+        int sno = Integer.parseInt(httpServletRequest.getParameter("sno"));
         String sname = httpServletRequest.getParameter("sname");
         String sgrade = httpServletRequest.getParameter("sgrade");
-        String sphone1 = httpServletRequest.getParameter("sphone");
-        int sphone = Integer.parseInt(sphone1);
+        int sphone = Integer.parseInt(httpServletRequest.getParameter("sphone"));
         String sschool = httpServletRequest.getParameter("sschool");
         String sdept = httpServletRequest.getParameter("sdept");
         String sinfo = httpServletRequest.getParameter("sinfo");
-        String steacher1 = httpServletRequest.getParameter("steacher");
-        int steacher = Integer.parseInt(steacher1);
+        int steacher = Integer.parseInt(httpServletRequest.getParameter("steacher"));
 
         User student = new User(sno,sname,sgrade,sphone,sschool,sdept,sinfo,steacher);
         userMapper.updateStudent(student);
@@ -109,13 +103,10 @@ public class UserController {
     //增加预约
     @RequestMapping("/addAppointment")
     public void addAppointment(HttpServletRequest httpServletRequest){
-        String sno1 = httpServletRequest.getParameter("sno");
-        int sno = Integer.parseInt(sno1);
-        String tno1 = httpServletRequest.getParameter("tno");
-        int tno = Integer.parseInt(tno1);
+        int sno = Integer.parseInt(httpServletRequest.getParameter("sno"));
+        int tno = Integer.parseInt(httpServletRequest.getParameter("tno"));
         String info = httpServletRequest.getParameter("info");
-        String statu1 = httpServletRequest.getParameter("statu");
-        int statu = Integer.parseInt(statu1);
+        int statu = Integer.parseInt(httpServletRequest.getParameter("statu"));
 
         Appointment appointment = new Appointment(sno,tno,info,statu);
         userMapper.addAppointment(appointment);
@@ -124,13 +115,10 @@ public class UserController {
     //取消预约
     @RequestMapping("/cancelAppointment")
     public void cancelAppointment(HttpServletRequest httpServletRequest){
-        String sno1 = httpServletRequest.getParameter("sno");
-        int sno = Integer.parseInt(sno1);
-        String tno1 = httpServletRequest.getParameter("tno");
-        int tno = Integer.parseInt(tno1);
+        int sno = Integer.parseInt(httpServletRequest.getParameter("sno"));
+        int tno = Integer.parseInt( httpServletRequest.getParameter("tno"));
         String info = httpServletRequest.getParameter("info");
-        String statu1 = httpServletRequest.getParameter("statu");
-        int statu = Integer.parseInt(statu1);
+        int statu = Integer.parseInt( httpServletRequest.getParameter("statu"));
 
         Appointment appointment = new Appointment(sno,tno,info,statu);
         userMapper.cancelAppointment(appointment);
@@ -139,13 +127,10 @@ public class UserController {
     //修改预约
     @RequestMapping("/changeAppointment")
     public void changeAppointment(HttpServletRequest httpServletRequest){
-        String sno1 = httpServletRequest.getParameter("sno");
-        int sno = Integer.parseInt(sno1);
-        String tno1 = httpServletRequest.getParameter("tno");
-        int tno = Integer.parseInt(tno1);
+        int sno = Integer.parseInt( httpServletRequest.getParameter("sno"));
+        int tno = Integer.parseInt(httpServletRequest.getParameter("tno"));
         String info = httpServletRequest.getParameter("info");
-        String statu1 = httpServletRequest.getParameter("statu");
-        int statu = Integer.parseInt(statu1);
+        int statu = Integer.parseInt(httpServletRequest.getParameter("statu"));
 
         Appointment appointment = new Appointment(sno,tno,info,statu);
         userMapper.changeAppointment(appointment);
@@ -154,32 +139,28 @@ public class UserController {
     //根据学号查询预约
     @GetMapping("/queryAppointmentBySno/{sno}")
     public Result queryAppointmentBySno(@PathVariable("sno") int sno){
-        Appointment appointment = userMapper.queryAppointmentBySno(sno);
-        return new Result<Appointment>(appointment);
+        List<Appointment> appointmentList = userMapper.queryAppointmentBySno(sno);
+        return new Result<Appointment>(appointmentList);
     }
 
     //根据工号查询预约
     @GetMapping("/queryAppointmentByTno/{tno}")
     public Result queryAppointmentByTno(@PathVariable("tno") int tno){
-        Appointment appointment = userMapper.queryAppointmentByTno(tno);
-        return new Result<Appointment>(appointment);
+        List<Appointment> appointmentList = userMapper.queryAppointmentByTno(tno);
+        return new Result<Appointment>(appointmentList);
     }
 
     //完成预约
     @RequestMapping("/finishAppointment")
     public void finishAppointment(HttpServletRequest httpServletRequest){
-        String sno1 = httpServletRequest.getParameter("sno");
-        int sno = Integer.parseInt(sno1);
-        String tno1 = httpServletRequest.getParameter("tno");
-        int tno = Integer.parseInt(tno1);
+        int sno = Integer.parseInt(httpServletRequest.getParameter("sno"));
+        int tno = Integer.parseInt(httpServletRequest.getParameter("tno"));
         String info = httpServletRequest.getParameter("info");
-        String statu1 = httpServletRequest.getParameter("statu");
-        int statu = Integer.parseInt(statu1);
+        int statu = Integer.parseInt(httpServletRequest.getParameter("statu"));
 
         Appointment appointment = new Appointment(sno,tno,info,statu);
         userMapper.finishAppointment(appointment);
     }
-
 
 
 

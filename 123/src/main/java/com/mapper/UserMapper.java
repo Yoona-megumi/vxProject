@@ -30,7 +30,7 @@ public interface UserMapper {
 
     Teacher queryTeacherByTno(int tno);
 
-    List<Teacher> queryTeacherBySname(String tname);
+    List<Teacher> queryTeacherByTname(String tname);
 
     int addAppointment(Appointment appointment);
 
@@ -38,15 +38,17 @@ public interface UserMapper {
 
     int changeAppointment(Appointment appointment);
 
-    Appointment queryAppointmentBySno(int sno);
+    List<Appointment> queryAppointmentBySno(int sno);
 
-    Appointment queryAppointmentByTno(int tno);
+    List<Appointment> queryAppointmentByTno(int tno);
 
     int finishAppointment(Appointment appointment);
 
     int stUDentAddTeacher(Relation relation);
 
     int teacherAddStudent(Relation relation);
+
+    List<User> queryMyStudent(int tno);
 
 
 }

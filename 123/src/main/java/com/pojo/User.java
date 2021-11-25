@@ -17,4 +17,6 @@ public class User {
     private String sdept;       //专业
     private String sinfo;       //个人简介
     private int steacher;    //辅导员
+
+
 }

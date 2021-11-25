@@ -21,7 +21,7 @@
 
     <!--添加用户-->
     <insert id="addStudent" parameterType="User">
-        insert into student(sno,sname,sgrade,sphone,sschool,sdept,sinfo,steacher) values (#{sno},#{sname},,#{sgrade},#{sphone},#{sschool},#{sdept},#{sinfo},#{steacher})
+        insert into student(sno,sname,sgrade,sphone,sschool,sdept,sinfo,steacher) values (#{sno},#{sname},#{sgrade},#{sphone},#{sschool},#{sdept},#{sinfo},#{steacher})
     </insert>
 
     <!--更新用户信息-->
@@ -40,8 +40,8 @@
     </select>
 
     <!--根据姓名查询老师-->
-    <select id="queryTeacherBySname" resultType="Teacher" >
-        select * from teacher where sname like "%"#{sname}"%"
+    <select id="queryTeacherByTname" resultType="Teacher" >
+        select * from teacher where tname like "%"#{tname}"%"
     </select>
 
     <!--根据工号查询老师-->
@@ -90,5 +90,10 @@
     <update id="stUDentAddTeacher" parameterType="Relation">
         update student set steacher=#{tno}
     </update>
+
+    <!--查询我的学生-->
+    <select id="queryMyStudent" resultType="User">
+        select s.* from student s join s_t st on s.sno=st.sno join teacher t on st.tno=t.tno where t.tno=#{tno}
+    </select>
 
 </mapper>
