@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Teacher {
 
-    private int tno;            //工号
+    private String tno;            //工号
     private String tname;       //姓名
-    private int tphone;         //联系方式
+    private String tphone;         //联系方式
     private String tgrade;      //负责的年级
-    private String tschool;     //负责的专业
+    private String tschool;     //负责的学院
+    private String tdept;
     private String tinfo;       //简介
 }

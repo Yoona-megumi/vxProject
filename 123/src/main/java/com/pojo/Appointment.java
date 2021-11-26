@@ -9,8 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Appointment {
 
-    private int sno;
-    private int tno;
+    private String sno;
+    private String tno;
     private String info;
     private int statu;
+    private int dangerlevel;
+
+    public Appointment(String sno, String tno, String info, int dangerlevel) {
+        this.sno = sno;
+        this.tno = tno;
+        this.info = info;
+        this.dangerlevel = dangerlevel;
+    }
 }

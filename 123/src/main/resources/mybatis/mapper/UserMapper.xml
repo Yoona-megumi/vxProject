@@ -4,9 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UserMapper">
 
-    <!-- 根据学号查询学生-->
-    <select id="queryStudentBySno" resultType="User" >
-        select * from student where sno=#{sno}
+    <!--根据条件查询学生-->
+    <select id="queryStudentBySearchParam" resultType="User">
+        select * from student
+        where
+        1 = 1
+        <if test="searchParam != null and searchParam != ''">
+            AND sname like CONCAT('%',#{searchParam},'%')
+            or sno like CONCAT('%',#{searchParam},'%')
+        </if>
+    </select>
+
+    <!--根据条件查询老师-->
+    <select id="queryTeacherBySearchParam" resultType="Teacher">
+        select * from teacher
+        where
+        1 = 1
+        <if test="searchParam != null and searchParam != ''">
+            AND tname like CONCAT('%',#{searchParam},'%')
+            or tno like CONCAT('%',#{searchParam},'%')
+        </if>
     </select>
 
     <!--查询所有老师-->
@@ -19,41 +36,39 @@
         select * from student
     </select>
 
-    <!--添加用户-->
+    <!--添加学生-->
     <insert id="addStudent" parameterType="User">
         insert into student(sno,sname,sgrade,sphone,sschool,sdept,sinfo,steacher) values (#{sno},#{sname},#{sgrade},#{sphone},#{sschool},#{sdept},#{sinfo},#{steacher})
     </insert>
 
-    <!--更新用户信息-->
+    <!--更新学生信息-->
     <update id="updateStudent" parameterType="User">
         update student set sname=#{sname},sgrade=#{sgrade},sphone=#{sphone},sschool=#{sschool},sdept=#{sdept},sinfo=#{sinfo},steacher=#{steacher} where sno=#{sno}
     </update>
 
-    <!--删除用户-->
-    <delete id="deleteStudentBySno" parameterType="int">
+    <!--删除学生-->
+    <delete id="deleteStudentBySno" parameterType="String">
         delete from student where sno=#{sno}
     </delete>
 
-    <!--根据姓名查询学生-->
-    <select id="queryStudentBySname" resultType="User" >
-        select * from student where sname like "%"#{sname}"%"
-    </select>
+    <!--添加老师-->
+    <insert id="addTeacher" parameterType="Teacher">
+        insert into teacher(tno,tname,tgrade,tphone,tdept,tschool,tinfo) values (#{tno},#{tname},#{tgrade},#{tphone},#{tdept},#{tschool},#{tinfo})
+    </insert>
 
-    <!--根据姓名查询老师-->
-    <select id="queryTeacherByTname" resultType="Teacher" >
-        select * from teacher where tname like "%"#{tname}"%"
-    </select>
+    <!--更新老师信息-->
+    <update id="updateTeacher" parameterType="Teacher">
+        update teacher set tname=#{tname},tgrade=#{tgrade},tphone=#{tphone},tdept=#{tdept},tschool=#{tschool},tinfo=#{tinfo}} where tno=#{tno}
+    </update>
 
-    <!--根据工号查询老师-->
-    <select id="queryTeacherByTno" resultType="Teacher" >
-        select * from teacher where tno=#{tno}
-    </select>
-
-
+    <!--删除老师-->
+    <delete id="deleteTeacherByTno" parameterType="String">
+        delete from teacher where tno=#{tno}
+    </delete>
 
     <!--增加预约-->
     <insert id="addAppointment"  parameterType="Appointment">
-        insert into s_book_t(sno,tno,info,statu) values (#{sno},#{tno},#{info},0)
+        insert into s_book_t(sno,tno,info,dangerlevel,statu) values (#{sno},#{tno},#{info},#{statu})
     </insert>
 
     <!--取消预约-->
@@ -63,22 +78,22 @@
 
     <!--根据学号查询预约-->
     <select id="queryAppointmentBySno" resultType="Appointment">
-        select * from s_book_t where sno=#{sno}
+        select * from student s join s_book_t sbt on s.sno=sbt.sno join teacher t on sbt.tno=t.tno where s.sno=#{sno}
     </select>
 
     <!--根据工号查询预约-->
     <select id="queryAppointmentByTno" resultType="Appointment">
-        select * from s_book_t where tno=#{tno}
+        select * from student s join s_book_t sbt on s.sno=sbt.sno join teacher t on sbt.tno=t.tno where t.tno=#{tno}
     </select>
 
     <!--修改预约-->
     <update id="changeAppointment" parameterType="Appointment">
-        update s_book_t set info=#{info} where sno=#{sno} and tno=#{tno}
+        update s_book_t set info=#{info},dangerlevel=#{dangerlevel} where sno=#{sno} and tno=#{tno}
     </update>
 
     <!--完成预约-->
     <update id="finishAppointment" parameterType="Appointment">
-         update s_book_t set statu=1 where sno=#{sno} and tno=#{tno}
+         update s_book_t set statu=#{statu} where sno=#{sno} and tno=#{tno}
     </update>
 
     <!--老师添加学生-->
@@ -95,5 +110,8 @@
     <select id="queryMyStudent" resultType="User">
         select s.* from student s join s_t st on s.sno=st.sno join teacher t on st.tno=t.tno where t.tno=#{tno}
     </select>
+
+
+
 
 </mapper>

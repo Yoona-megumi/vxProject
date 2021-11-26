@@ -14,7 +14,9 @@ import java.util.List;
 @Repository
 public interface UserMapper {
 
-    User queryStudentBySno(int sno);
+    List<User> queryStudentBySearchParam(String searchParam);
+
+    List<Teacher> queryTeacherBySearchParam(String searchParam);
 
     List<Teacher> queryTeacherList();
 
@@ -24,13 +26,13 @@ public interface UserMapper {
 
     int updateStudent(User user);
 
-    int deleteStudentBySno(int sno);
+    int deleteStudentBySno(String sno);
 
-    List<User> queryStudentBySname(String sname);
+    int addTeacher(Teacher teacher);
 
-    Teacher queryTeacherByTno(int tno);
+    int updateTeacher(Teacher teacher);
 
-    List<Teacher> queryTeacherByTname(String tname);
+    int deleteTeacherByTno(String tno);
 
     int addAppointment(Appointment appointment);
 
@@ -38,9 +40,9 @@ public interface UserMapper {
 
     int changeAppointment(Appointment appointment);
 
-    List<Appointment> queryAppointmentBySno(int sno);
+    List<Appointment> queryAppointmentBySno(String sno);
 
-    List<Appointment> queryAppointmentByTno(int tno);
+    List<Appointment> queryAppointmentByTno(String tno);
 
     int finishAppointment(Appointment appointment);
 
@@ -48,7 +50,9 @@ public interface UserMapper {
 
     int teacherAddStudent(Relation relation);
 
-    List<User> queryMyStudent(int tno);
+    List<User> queryMyStudent(String tno);
+
+
 
 
 }

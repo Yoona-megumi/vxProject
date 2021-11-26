@@ -16,10 +16,7 @@ class ApplicationTests {
 
     @Test
     void contextLoads() {
-        List<User> students = userMapper.queryMyStudent(123);
-        for (User student : students) {
-            System.out.println(student);
-        }
+
 
     }
 

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Relation {
 
-    private int sno;
-    private int tno;
+    private String sno;
+    private String tno;
 }
