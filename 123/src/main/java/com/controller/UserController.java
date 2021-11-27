@@ -1,10 +1,7 @@
 package com.controller;
 
 import com.mapper.UserMapper;
-import com.pojo.Appointment;
-import com.pojo.Result;
-import com.pojo.Teacher;
-import com.pojo.User;
+import com.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -190,6 +187,58 @@ public class UserController {
         return new Result<User>(students);
     }
 
+    //老师添加学生
+    @RequestMapping("/teacherAddStudent")
+    public void teacherAddStudent(String sno,String tno){
+        Relation relation = new Relation(sno,tno);
+        userMapper.teacherAddStudent(relation);
+    }
 
+    //学生添加老师
+    @RequestMapping("/studentAddTeacher")
+    public void studentAddTeacher(String sno,String tno){
+        Relation relation = new Relation(sno,tno);
+        userMapper.studentAddTeacher(relation);
+    }
 
+    //根据工号查询所有通知
+    @RequestMapping("/queryNotice")
+    public Result queryNotice(HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
+        String tno = request.getParameter("tno");
+        String notice = request.getParameter("notice");
+        Notice notice1 = new Notice(tno,notice,id);
+        List<Notice> notices = userMapper.queryNotice(notice1);
+        return new Result<Notice>(notices);
+    }
+
+    //根据工号和id修改通知
+    @RequestMapping("/updateNotice")
+    public void updateNotice(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String tno = request.getParameter("tno");
+        String notice = request.getParameter("notice");
+        Notice notice1 = new Notice(tno, notice, id);
+        userMapper.updateNotice(notice1);
+    }
+
+    //添加通知
+    @RequestMapping("/addNotice")
+    public void addNotice(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String tno = request.getParameter("tno");
+        String notice = request.getParameter("notice");
+        Notice notice1 = new Notice(tno, notice, id);
+        userMapper.addNotice(notice1);
+    }
+
+    //根据id和工号删除通知
+    @RequestMapping("/deleteNoticeById")
+    public void deleteNoticeById(HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
+        String tno = request.getParameter("tno");
+        String notice = request.getParameter("notice");
+        Notice notice1 = new Notice(tno, notice, id);
+        userMapper.deleteNoticeById(notice1);
+    }
 }

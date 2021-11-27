@@ -1,9 +1,6 @@
 package com.mapper;
 
-import com.pojo.Appointment;
-import com.pojo.Relation;
-import com.pojo.Teacher;
-import com.pojo.User;
+import com.pojo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -46,11 +43,19 @@ public interface UserMapper {
 
     int finishAppointment(Appointment appointment);
 
-    int stUDentAddTeacher(Relation relation);
+    int studentAddTeacher(Relation relation);
 
     int teacherAddStudent(Relation relation);
 
     List<User> queryMyStudent(String tno);
+
+    List<Notice> queryNotice(Notice notice);
+
+    int addNotice(Notice notice);
+
+    int deleteNoticeById(Notice notice);
+
+    int updateNotice(Notice notice);
 
 
 

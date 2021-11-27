@@ -102,8 +102,8 @@
     </insert>
 
     <!--学生添加老师-->
-    <update id="stUDentAddTeacher" parameterType="Relation">
-        update student set steacher=#{tno}
+    <update id="studentAddTeacher" parameterType="Relation">
+        update student set steacher=#{tno} where sno=#{sno}
     </update>
 
     <!--查询我的学生-->
@@ -111,7 +111,23 @@
         select s.* from student s join s_t st on s.sno=st.sno join teacher t on st.tno=t.tno where t.tno=#{tno}
     </select>
 
+    <!--根据工号查询所有通知-->
+    <select id="queryNotice" resultType="Notice">
+        select * from notice where tno=#{tno}
+    </select>
 
+    <!--添加通知-->
+    <insert id="addNotice" parameterType="Notice">
+        insert into notice(id,tno,notice) values (#{id},#{tno},#{notice})
+    </insert>
 
+    <!--根据id和工号删除通知-->
+    <delete id="deleteNoticeById" parameterType="Notice">
+        delete from notice where tno=#{tno} and id=#{id}
+    </delete>
 
+    <!--修改通知-->
+    <delete id="updateNotice" parameterType="Notice">
+        update notice set notice=#{notice} where tno=#{tno} and id=#{id}
+    </delete>
 </mapper>
